@@ -22,7 +22,7 @@ URL = "https://www.dbs.com/sailing/index.html"
 STATUS_FILE = Path(__file__).with_name("status.txt")
 TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN", "")
 CHAT_ID = os.environ.get("CHAT_ID", "")
-TARGET_MONTH = "april"
+TARGET_MONTH = "may"
 
 HEADERS = {
     "User-Agent": (
