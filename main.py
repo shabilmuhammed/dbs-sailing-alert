@@ -22,7 +22,7 @@ URL = "https://www.dbs.com/sailing/index.html"
 STATUS_FILE = Path(__file__).with_name("status.txt")
 TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN", "")
 CHAT_ID = os.environ.get("CHAT_ID", "")
-TARGET_MONTH = "april"
+TARGET_MONTH = "may"
 
 HEADERS = {
     "User-Agent": (
@@ -147,13 +147,15 @@ def send_telegram(message: str) -> bool:
         return False
 
     api_url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
-    payload = {
+    data = {
         "chat_id": CHAT_ID,
         "text": message,
     }
 
     try:
-        resp = requests.post(api_url, json=payload, timeout=15)
+        resp = requests.post(api_url, data=data, timeout=15)
+        if not resp.ok:
+            log.error("Telegram API error %d: %s", resp.status_code, resp.text)
         resp.raise_for_status()
         log.info("Telegram message sent successfully.")
         return True
